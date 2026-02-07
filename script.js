@@ -9,6 +9,7 @@ const outputs = {
   c: document.querySelector("#c"),
   ic: document.querySelector("#ic"),
 };
+const status = document.querySelector("#status");
 
 const formatNumber = (value, unit, digits = 2) => {
   if (!Number.isFinite(value)) {
@@ -29,10 +30,21 @@ const calculate = () => {
     Object.values(outputs).forEach((node) => {
       node.textContent = "-";
     });
+    status.textContent = "Enter positive values for all fields to calculate results.";
+    status.className = "status error";
     return;
   }
 
   const duty = vout / vin;
+  if (duty >= 1) {
+    Object.values(outputs).forEach((node) => {
+      node.textContent = "-";
+    });
+    status.textContent = "Vout must be lower than Vin for a buck converter. Adjust the inputs.";
+    status.className = "status error";
+    return;
+  }
+
   const fsw = fswKhz * 1000;
   const deltaIL = (ripplePercent / 100) * iout;
   const inductance = ((vin - vout) * duty) / (deltaIL * fsw);
@@ -47,10 +59,22 @@ const calculate = () => {
   outputs.ipeak.textContent = formatNumber(inductorPeak, "A", 3);
   outputs.c.textContent = formatNumber(capacitance * 1e6, "µF", 1);
   outputs.ic.textContent = formatNumber(capRippleCurrent, "A", 3);
+
+  if (duty > 0.9) {
+    status.textContent = "Duty cycle is high (>90%). Verify switch losses and headroom.";
+    status.className = "status warning";
+  } else {
+    status.textContent = "Calculation complete. Review component ratings for margins.";
+    status.className = "status";
+  }
 };
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
+  calculate();
+});
+
+form.addEventListener("input", () => {
   calculate();
 });
 

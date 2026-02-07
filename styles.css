@@ -137,6 +137,26 @@ button {
   margin-bottom: 16px;
 }
 
+.status {
+  border-radius: 12px;
+  padding: 12px 14px;
+  background: rgba(47, 102, 255, 0.08);
+  color: var(--text);
+  font-size: 0.9rem;
+  margin-bottom: 16px;
+  border: 1px solid rgba(47, 102, 255, 0.2);
+}
+
+.status.warning {
+  background: rgba(250, 173, 20, 0.15);
+  border-color: rgba(250, 173, 20, 0.45);
+}
+
+.status.error {
+  background: rgba(230, 80, 80, 0.12);
+  border-color: rgba(230, 80, 80, 0.45);
+}
+
 .result-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
