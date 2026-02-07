@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Synchronous Buck Converter Calculator</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">Power Electronics Toolkit</p>
+          <h1>Synchronous Buck Converter Calculator</h1>
+          <p class="lead">
+            Estimate duty cycle, inductor ripple, peak current, and output capacitor requirements for
+            a synchronous buck converter.
+          </p>
+        </div>
+        <div class="card note">
+          <h2>Assumptions</h2>
+          <ul>
+            <li>Continuous conduction mode (CCM).</li>
+            <li>Ideal switches with synchronous rectification.</li>
+            <li>Ripple targets are peak-to-peak values.</li>
+          </ul>
+        </div>
+      </header>
+
+      <section class="grid">
+        <form class="card" id="buck-form">
+          <h2>Inputs</h2>
+          <div class="field">
+            <label for="vin">Input Voltage (V)</label>
+            <input type="number" id="vin" name="vin" value="12" step="0.1" min="0" required />
+          </div>
+          <div class="field">
+            <label for="vout">Output Voltage (V)</label>
+            <input type="number" id="vout" name="vout" value="5" step="0.1" min="0" required />
+          </div>
+          <div class="field">
+            <label for="iout">Output Current (A)</label>
+            <input type="number" id="iout" name="iout" value="3" step="0.1" min="0" required />
+          </div>
+          <div class="field">
+            <label for="fsw">Switching Frequency (kHz)</label>
+            <input type="number" id="fsw" name="fsw" value="500" step="10" min="1" required />
+          </div>
+          <div class="field">
+            <label for="ripple">Inductor Ripple Current (% of Iout)</label>
+            <input type="number" id="ripple" name="ripple" value="30" step="1" min="1" max="100" required />
+          </div>
+          <div class="field">
+            <label for="vipple">Output Voltage Ripple (mV p-p)</label>
+            <input type="number" id="vipple" name="vipple" value="20" step="1" min="1" required />
+          </div>
+          <button class="primary" type="submit">Calculate</button>
+          <button class="ghost" type="button" id="reset">Reset</button>
+        </form>
+
+        <section class="card results" aria-live="polite">
+          <h2>Results</h2>
+          <div class="result-grid">
+            <div>
+              <span>Duty Cycle</span>
+              <strong id="duty">-</strong>
+            </div>
+            <div>
+              <span>Inductor Ripple (A p-p)</span>
+              <strong id="dl">-</strong>
+            </div>
+            <div>
+              <span>Recommended Inductance (µH)</span>
+              <strong id="l">-</strong>
+            </div>
+            <div>
+              <span>Inductor Peak Current (A)</span>
+              <strong id="ipeak">-</strong>
+            </div>
+            <div>
+              <span>Output Capacitance (µF)</span>
+              <strong id="c">-</strong>
+            </div>
+            <div>
+              <span>Cap RMS Ripple Current (A)</span>
+              <strong id="ic">-</strong>
+            </div>
+          </div>
+          <p class="footnote">
+            Capacitor estimate assumes ideal ESR-free capacitor. Add ESR ripple separately if
+            selecting real components.
+          </p>
+        </section>
+      </section>
+
+      <section class="card equations">
+        <h2>Equations</h2>
+        <div class="equation-grid">
+          <div>
+            <h3>Duty Cycle</h3>
+            <p>D = Vout / Vin</p>
+          </div>
+          <div>
+            <h3>Inductor Ripple</h3>
+            <p>ΔIL = ripple% × Iout</p>
+          </div>
+          <div>
+            <h3>Inductance</h3>
+            <p>L = (Vin − Vout) × D / (ΔIL × fSW)</p>
+          </div>
+          <div>
+            <h3>Output Capacitance</h3>
+            <p>C = ΔIL / (8 × fSW × ΔVout)</p>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>
