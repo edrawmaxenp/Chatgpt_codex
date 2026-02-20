@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agilent-style ESP32 Scope UI Preview</title>
+  <style>
+    body { margin:0; background:#0b1116; font-family:Arial, Helvetica, sans-serif; }
+    .screen { width:1024px; height:600px; margin:20px auto; background:#000; border:3px solid #3a4f5d; position:relative; }
+    .status { position:absolute; left:8px; top:6px; right:8px; color:#e8eef2; font-size:16px; }
+    .wave { position:absolute; left:8px; top:36px; width:748px; height:554px; background:#060b0f; border:1px solid #31505e;
+      background-image:
+        linear-gradient(to right, rgba(26,61,74,.9) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(26,61,74,.9) 1px, transparent 1px);
+      background-size: 74.8px 69.25px;
+      overflow:hidden;
+    }
+    .wave:before { content:""; position:absolute; inset:0; background-image:
+        linear-gradient(to right, rgba(46,101,117,.55) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(46,101,117,.55) 1px, transparent 1px);
+      background-size: 374px 277px;
+    }
+    .trace { position:absolute; inset:0; }
+    .trigger { position:absolute; left:0; right:0; top:50%; border-top:2px dashed #4fc3f7; opacity:.9; }
+    .panel { position:absolute; right:6px; top:36px; width:252px; height:554px; background:#0e1a22; border:1px solid #33505d; color:#e8eef2; padding:10px; box-sizing:border-box; }
+    .row { display:flex; align-items:center; justify-content:space-between; margin:8px 0; font-size:14px; }
+    .badge { background:#122a37; border:1px solid #33505d; padding:4px 8px; border-radius:4px; }
+    .small { color:#8fb2c1; font-size:12px; }
+    .switch { width:36px; height:18px; border-radius:10px; background:#2f7b40; position:relative; }
+    .switch:after { content:""; position:absolute; width:14px; height:14px; border-radius:50%; background:#fff; right:2px; top:2px; }
+  </style>
+</head>
+<body>
+  <div class="screen">
+    <div class="status">CH1 ON 500mV/div x1 | CH2 ON 500mV/div x1 | Time x2 | Trig CH1 Rising 1650mV</div>
+    <div class="wave">
+      <svg class="trace" viewBox="0 0 748 554" preserveAspectRatio="none">
+        <polyline fill="none" stroke="#FFD400" stroke-width="2" points="0,270 20,240 40,230 60,260 80,300 100,320 120,290 140,250 160,220 180,245 200,285 220,315 240,300 260,260 280,228 300,236 320,270 340,310 360,312 380,280 400,240 420,220 440,246 460,286 480,316 500,298 520,256 540,226 560,238 580,274 600,312 620,310 640,276 660,238 680,222 700,248 720,288 748,314" />
+        <polyline fill="none" stroke="#00D5FF" stroke-width="2" points="0,330 20,352 40,344 60,320 80,300 100,312 120,338 140,356 160,346 180,320 200,296 220,306 240,332 260,354 280,348 300,324 320,298 340,304 360,328 380,352 400,350 420,326 440,300 460,302 480,326 500,350 520,352 540,330 560,304 580,300 600,322 620,348 640,354 660,334 680,308 700,300 720,318 748,344" />
+      </svg>
+      <div class="trigger"></div>
+    </div>
+    <div class="panel">
+      <div class="row"><strong>CH1</strong><span class="switch"></span></div>
+      <div class="row"><span class="small">Probe</span><span class="badge">x1</span><span class="small">V/div</span><span class="badge">500mV</span></div>
+      <div class="row"><strong>CH2</strong><span class="switch"></span></div>
+      <div class="row"><span class="small">Probe</span><span class="badge">x1</span><span class="small">V/div</span><span class="badge">500mV</span></div>
+      <div class="row"><span>Time/div</span><span class="badge">x2</span></div>
+      <div class="row"><span>Trigger Src</span><span class="badge">CH1</span></div>
+      <div class="row"><span>Trigger Slope</span><span class="badge">Rising</span></div>
+      <div class="row"><span>Trigger Level</span><span class="badge">1650mV</span></div>
+      <div style="margin-top:12px; height:8px; background:#1a2f3a; border:1px solid #33505d; position:relative;">
+        <div style="position:absolute; left:50%; top:-4px; width:10px; height:16px; background:#4fc3f7;"></div>
+      </div>
+      <p class="small" style="margin-top:16px; line-height:1.4">Preview mock to show intended Agilent-like layout of the LVGL implementation.</p>
+    </div>
+  </div>
+</body>
+</html>
